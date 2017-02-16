@@ -1,9 +1,8 @@
 #include <iostream>
 #include <string>
-#include <algorithm>
 #include <vector>
-#include <cmath>
 #include <regex>
+#include <chrono>
 
 using namespace std;
 inline void keep_window_open() { char ch; cin >> ch; }
@@ -11,6 +10,8 @@ inline void keep_window_open() { char ch; cin >> ch; }
 int error(string s) {
 	throw runtime_error(s);
 }
+
+// ------------ helper functions -------------
 
 bool is_isbn(string isbn) {
 	if (regex_match(isbn, regex("[0-9]*-[0-9]+-[0-9]+x?")))
@@ -26,6 +27,13 @@ bool is_date(string isbn) {
 		return false;
 }
 
+string date_today() {
+	chrono::system_clock::time_point today = chrono::system_clock::now();
+	
+}
+
+// ------------ Class Functions -------------
+
 class Book {
 
 private:
@@ -33,7 +41,8 @@ private:
 	string title{};
 	string author{};
 	string copyrightDate{};
-	bool isCheckedOut{ false };
+	bool isCheckedOut{ false }; // date?
+	string checkoutDate{};
 
 public:
 	// -----------------constructor --------------------
@@ -52,6 +61,20 @@ public:
 	void checkout();
 
 };
+
+void Book::checkout() {
+	if (!isCheckedOut)
+		isCheckedOut = true;
+	else
+		throw error("Book already checked out.");
+}
+
+void Book::checkin() {
+	if (isCheckedOut)
+		isCheckedOut = false;
+	else
+		throw error("Book already checked in.");
+}
 
 int main() {
 	try {
@@ -72,9 +95,17 @@ int main() {
 	cout << "isbn: " << q.get_isbn() << " Title: " << q.get_title() << " Author: "
 		<< q.get_author() << " Copyright: " << q.get_copyright() << endl;
 
-	Book u = Book("", "", "", "01/01/0000");
+	Book u = Book("109-005-7434", "Blank", "Blank", "01/01/0000");
 	cout << "isbn: " << u.get_isbn() << " Title: " << u.get_title() << " Author: "
 		<< u.get_author() << " Copyright: " << u.get_copyright() << endl;
+	
+	cout << b.is_checked_out() << endl;
+	b.checkout();
+	//b.checkout();
+	cout << b.is_checked_out() << endl;
+	b.checkin();
+	cout << b.is_checked_out() << endl;
+	//b.checkin();
 
 	}
 

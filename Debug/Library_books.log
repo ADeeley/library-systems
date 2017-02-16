@@ -1,3 +1,2 @@
 ﻿  Source.cpp
-  Library_books.vcxproj -> C:\Users\Adam\documents\visual studio 2015\Projects\Library_books\Debug\Library_books.exe
-  Library_books.vcxproj -> C:\Users\Adam\documents\visual studio 2015\Projects\Library_books\Debug\Library_books.pdb (Full PDB)
+c:\users\adam\documents\visual studio 2015\projects\library_books\library_books\source.cpp(32): error C4716: 'date_today': must return a value
