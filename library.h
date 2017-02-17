@@ -1,6 +1,8 @@
 #include <string>
 using namespace std;
 
+enum class genre { fiction = 1, nonfiction, periodical, biography, children };
+
 // ------------ helper functions -------------
 
 int error(string s) {
@@ -21,20 +23,23 @@ bool is_date(string isbn) {
 		return false;
 }
 
+
 class Book {
 
 private:
 	string isbn{};
 	string title{};
 	string author{};
+	genre gen;
 	string copyrightDate{};
 	bool isCheckedOut{ false }; // date?
 	string checkoutDate{};
 
 public:
 	// -----------------constructor --------------------
-	Book(string is, string ti, string au, string cp)
-		:isbn{ is }, title{ ti }, author{ au }, copyrightDate{ cp } {
+	Book(string is, string ti, string au, genre ge, string cp)
+		:isbn{ is }, title{ ti }, author{ au }, copyrightDate {	cp	} , gen{ge}
+	{
 		if (!is_isbn(is)) { throw error(is + " is invalid ISBN."); }
 		if (!is_date(cp)) { throw error(cp + " is an invalid year. Please ensure the date is correct and is in the format dd/mm/yyyy."); }
 	}
@@ -48,4 +53,3 @@ public:
 	void checkout();
 
 };
-
