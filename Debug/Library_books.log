@@ -1,3 +1,5 @@
 ﻿  Source.cpp
+c:\users\adam\documents\visual studio 2015\projects\library_books\library_books\library.h(133): warning C4018: '<': signed/unsigned mismatch
+c:\users\adam\documents\visual studio 2015\projects\library_books\library_books\library.h(144): warning C4018: '<': signed/unsigned mismatch
   Library_books.vcxproj -> C:\Users\Adam\documents\visual studio 2015\Projects\Library_books\Debug\Library_books.exe
   Library_books.vcxproj -> C:\Users\Adam\documents\visual studio 2015\Projects\Library_books\Debug\Library_books.pdb (Full PDB)

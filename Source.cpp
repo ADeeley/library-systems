@@ -25,21 +25,56 @@ void Book::checkin() {
 		throw error("Book already checked in.");
 }
 
-bool operator==(Book& b, Book& c) {
-	return b.get_isbn() == c.get_isbn();
+void Patron::set_fee(double f) {
+	if (fee >= 0)
+		fee = f;
+	else
+		throw error("Fee must be greater than 0"); // error not throwing - maybe not recognising minus numbers in doubles?
 }
 
-bool operator!=(Book& b, Book& c) {
-	return b.get_isbn() != c.get_isbn();
+bool Patron::owes_fee() {
+	if (fee > 0)
+		return true;
+	else if (fee == 0)
+		return false;
+	else
+		throw error("Fee is less than $0");
 }
 
-ostream& operator<<(ostream& os, Book& bk) {
-	return os << bk.get_title() << '\n' << bk.get_author() << '\n' << bk.get_isbn() << endl;
+
+
+void library_class_test() {
+	Library l = Library();
+	l.add_book(Book("273-597-123x", "1984", "George Orwell", genre::fiction, "21/06/1980"));
+	l.add_book(Book("235-555-466x", "Ubik", "PK Dick", genre::children, "12/03/1970"));
+	l.add_book(Book("098-655-234x", "Valis", "PK Dick", genre::periodical, "12/03/1970"));
+	l.add_book(Book("291-394-497x", "Slaugherhouse 5", "Kurt Vonnegut", genre::nonfiction, "12/03/1970"));
+	l.add_book(Book("456-501-447x", "Eye In The Sky", "PK Dick", genre::biography, "12/03/1970"));
+
+	l.add_patron(Patron("Adam D", 89348349));
+	l.add_patron(Patron("Charlie P", 63516381));
+	l.add_patron(Patron("Mable B", 38516381));
+	l.add_patron(Patron("Shelly B", 38138418));
+	cout << '\n' << "Books in library:"   << endl;
+	l.get_books();
+	cout << '\n' << "Library patrons: " << endl;
+	l.get_patrons();
+
+	//-------- checkout tests ------------
+	l.checkout_book("1984");
+	l.get_books();
+	//l.checkout_book("1984");
+	//l.checkout_book("1347");
+
+	//-------- checkin tests ------------
+	l.checkin_book("1984");
+	l.get_books();
+	//l.checkin_book("1984");
+	l.checkin_book("1457");
+
 }
 
-int main() {
-	try {
-
+void book_class_tests() {
 	//Book b = Book("233-555-466x", "1984", "George Orwell", "21/06/1980");
 	//cout << "isbn: " << b.get_isbn() << " Title: " << b.get_title() << " Author: "
 	//	<< b.get_author() << " Copyright: " << b.get_copyright() << endl;
@@ -67,23 +102,49 @@ int main() {
 	//b.checkin();
 	//cout << b.is_checked_out() << endl;
 	////b.checkin();
+}
 
+void patron_class_tests() {
+	// ----------  Patron tests -----------
+	/*Patron p = Patron("Adam D", 89348349);
+	cout << p.get_fee() << endl;
+	cout << p.owes_fee() << endl;
+	p.set_fee(15.33);
+	cout << p.get_fee() << endl;
+	p.set_fee(-1);
+	cout << p.get_fee() << endl;
+	cout << p.owes_fee() << endl;*/
+}
 
-	Book b = Book("233-555-466x", "1984", "George Orwell", genre::fiction, "21/06/1980");
-	Book c = Book("233-555-466x", "Ubik", "PK Dick", genre::fiction,  "12/03/1970");
-	// ---------- operator tests -----------
+void genre_enum_tests() {
 
-	bool d = b == c;
-	bool e = b != c;
-	if (d &! e)
-		cout << "True" << endl;
-	else
-		cout << "False" << endl;
+	// ---------- Genre tests -----------
 
-	cout << b << c;
+	//Book b = Book("273-597-123x", "1984", "George Orwell", genre::fiction, "21/06/1980");
+	//Book c = Book("235-555-466x", "Ubik", "PK Dick", genre::children,  "12/03/1970");
+	//Book d = Book("098-655-234x", "Valis", "PK Dick", genre::periodical, "12/03/1970");
+	//Book e = Book("291-394-497x", "Slaugherhouse 5", "Kurt Vonnegut", genre::nonfiction, "12/03/1970");
+	//Book f = Book("456-501-447x", "Ubik", "PK Dick", genre::biography, "12/03/1970");
+	//// ---------- operator tests -----------
 
+	//bool d = b == c;
+	//bool e = b != c;
+	//if (d &! e)
+	//	cout << "True" << endl;
+	//else
+	//	cout << "False" << endl;
 
+	//cout << b << c;
+}
 
+int main() {
+	try {
+	/*
+	genre_enum_tests();
+	patron_class_tests();
+	book_class_tests();
+	library_class_test();
+	*/
 	}
 
 
